@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alex Chen — Animated</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* initial hidden/transform states + transitions (timings chosen to match your motion delays) */
+    #navbar {
+      transform: translateY(-100px);
+      transition: transform 500ms cubic-bezier(.22,.9,.32,1), background-color 300ms ease;
+    }
+
+    /* hero wrapper (fade/slide) */
+    #hero-wrap {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 800ms ease, transform 800ms ease;
+    }
+
+    /* large title (scale + fade) */
+    #hero-title {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 1000ms cubic-bezier(.22,.9,.32,1), transform 1000ms cubic-bezier(.22,.9,.32,1);
+      will-change: transform, opacity;
+    }
+
+    /* underline starts at 0 width */
+    #hero-line {
+      width: 0;
+      transition: width 800ms ease;
+      height: 2px; /* fallback for non-tailwind */
+    }
+
+    /* subtitle paragraph fade */
+    #hero-sub {
+      opacity: 0;
+      transition: opacity 800ms ease;
+    }
+
+    /* longer description reveal */
+    #hero-desc {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 800ms ease, transform 800ms ease;
+    }
+
+    /* arrow wrapper appear */
+    #hero-arrow-wrap {
+      opacity: 0;
+      transition: opacity 800ms ease;
+    }
+
+    /* accessible focus outline for links/buttons */
+    .focus-ring:focus {
+      outline: 3px solid rgba(59,130,246,0.35);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="text-xl font-medium tracking-wide select-none">Lilliana Lema Leon</div>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex space-x-8">
+          <a href="#home" class="relative text-sm tracking-wide text-gray-700 hover:text-black transition-colors group focus-ring">Home
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#about" class="relative text-sm tracking-wide text-gray-700 hover:text-black transition-colors group focus-ring">About Me
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#portrait" class="relative text-sm tracking-wide text-gray-700 hover:text-black transition-colors group focus-ring">Student Portrait
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#work" class="relative text-sm tracking-wide text-gray-700 hover:text-black transition-colors group focus-ring">Work
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#process" class="relative text-sm tracking-wide text-gray-700 hover:text-black transition-colors group focus-ring">Process
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#achievements" class="relative text-sm tracking-wide text-gray-700 hover:text-black transition-colors group focus-ring">Achievements
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#contact" class="relative text-sm tracking-wide text-gray-700 hover:text-black transition-colors group focus-ring">Contact
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </div>
+
+        <!-- Mobile Nav Button (static for now) -->
+        <div class="md:hidden">
+          <button class="text-gray-700 hover:text-black focus-ring" aria-label="Open menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white">
+    <div class="text-center px-6 max-w-4xl mx-auto">
+      <!-- wrapper (initially hidden/translated) -->
+      <div id="hero-wrap" class="mb-8">
+        <!-- main title -->
+        <h1 id="hero-title" class="text-6xl md:text-8xl tracking-wider mb-4 select-none">LILLIAN LEMA LEON</h1>
+
+        <!-- underline (starts with width:0, animate to 96px) -->
+        <div id="hero-line" class="mx-auto mb-6 bg-black h-0.5"></div>
+
+        <!-- short tagline -->
+        <p id="hero-sub" class="text-xl md:text-2xl text-gray-600 tracking-wide">
+          Fashion Design Student &amp; Creative Visionary
+        </p>
+      </div>
+
+      <!-- description (reveals slightly later) -->
+      <div id="hero-desc" class="text-center">
+        <p class="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          Crafting innovative designs that blend contemporary aesthetics with sustainable practices.
+          Passionate about creating fashion that tells stories and challenges conventions.
+        </p>
+      </div>
+
+      <!-- bouncing arrow (appears after content) -->
+      <div class="mt-12">
+        <div id="hero-arrow-wrap" class="hero-arrow-wrap">
+          <div class="animate-bounce hover:scale-110 transition-transform inline-block">
+            <svg class="w-6 h-6 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+<section id="about" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Section Heading -->
+    <div class="text-center mb-16 opacity-0 translate-y-8 transition-all duration-800 ease-out reveal">
+      <h2 class="text-4xl md:text-5xl tracking-wide mb-6">About Me</h2>
+      <div class="w-16 h-0.5 bg-black mx-auto"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <!-- Left Column -->
+      <div class="space-y-6 opacity-0 -translate-x-8 transition-all duration-800 ease-out delay-200 reveal">
+        <h3 class="text-2xl tracking-wide">Design Philosophy</h3>
+        <p class="text-gray-600 leading-relaxed">
+          My approach to fashion design is rooted in the belief that clothing should be both beautiful and meaningful. 
+          I draw inspiration from architecture, nature, and cultural movements to create pieces that challenge 
+          traditional silhouettes while maintaining wearability.
+        </p>
+        <p class="text-gray-600 leading-relaxed">
+          Sustainability is at the core of my practice. I focus on zero-waste patterns, upcycled materials, 
+          and timeless designs that transcend seasonal trends. Each piece I create tells a story of conscious 
+          design and innovative craftsmanship.
+        </p>
+        <div class="flex space-x-8 pt-4">
+          <div>
+            <h4 class="font-medium mb-2">Focus Areas</h4>
+            <ul class="text-gray-600 space-y-1">
+              <li>• Sustainable Fashion</li>
+              <li>• Avant-garde Design</li>
+              <li>• Pattern Making</li>
+              <li>• Textile Innovation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6 opacity-0 translate-x-8 transition-all duration-800 ease-out delay-400 reveal">
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <h4 class="font-medium mb-4">Current Studies</h4>
+          <p class="text-gray-600 mb-4">
+            Bachelor of Fine Arts in Fashion Design<br />
+            Parsons School of Design, New York<br />
+            Expected Graduation: May 2025
+          </p>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-gray-600">GPA</span>
+              <span>3.9/4.0</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Dean's List</span>
+              <span>2023, 2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-gray-50 p-6 rounded-lg text-center">
+            <div class="text-2xl font-medium mb-2">15+</div>
+            <div class="text-gray-600">Projects Completed</div>
+          </div>
+          <div class="bg-gray-50 p-6 rounded-lg text-center">
+            <div class="text-2xl font-medium mb-2">3</div>
+            <div class="text-gray-600">Internships</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Student Portrait Section -->
+<section id="portrait" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Section Heading -->
+    <div class="text-center mb-16 opacity-0 translate-y-8 transition-all duration-800 ease-out reveal">
+      <h2 class="text-4xl md:text-5xl tracking-wide mb-6">Student Portrait</h2>
+      <div class="w-16 h-0.5 bg-black mx-auto"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left: Image -->
+      <div class="relative opacity-0 scale-95 transition-all duration-800 ease-out delay-200 reveal">
+        <div class="relative overflow-hidden rounded-lg group">
+          <img 
+            src="https://images.unsplash.com/photo-1621274790572-7c32596bc67f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" 
+            alt="Alex Chen - Fashion Design Student"
+            class="w-full h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
+          <div class="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <h3 class="text-xl font-medium mb-2">Alex Chen</h3>
+            <p class="text-sm text-gray-200">Fashion Design Student & Creative Visionary</p>
+          </div>
+        </div>
+        <!-- Decorative Shapes -->
+        <div class="absolute -bottom-6 -right-6 w-24 h-24 border-2 border-black bg-white opacity-80"></div>
+        <div class="absolute -top-6 -left-6 w-16 h-16 border-2 border-gray-400 bg-white opacity-60"></div>
+      </div>
+
+      <!-- Right: Content -->
+      <div class="space-y-8 opacity-0 translate-x-8 transition-all duration-800 ease-out delay-400 reveal">
+        <div class="space-y-4">
+          <h3 class="text-2xl tracking-wide">Meet the Designer</h3>
+          <p class="text-gray-600 leading-relaxed">
+            I'm a passionate fashion design student with a vision to revolutionize the industry through 
+            sustainable and innovative design practices. My journey began with sketching in high school 
+            notebooks and has evolved into a comprehensive understanding of garment construction, 
+            pattern making, and textile science.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <h4 class="font-medium text-gray-900">Based In</h4>
+            <p class="text-gray-600">New York City</p>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-medium text-gray-900">Year</h4>
+            <p class="text-gray-600">Junior (2025)</p>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-medium text-gray-900">Specialization</h4>
+            <p class="text-gray-600">Sustainable Fashion</p>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-medium text-gray-900">Tools</h4>
+            <p class="text-gray-600">CLO 3D, Illustrator</p>
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <blockquote class="text-lg text-gray-700 italic border-l-4 border-gray-300 pl-6">
+            "Fashion is not just about clothing—it's about creating a sustainable future where 
+            beauty and responsibility coexist."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== My Work (with filter bar) ===== -->
+<section id="work" class="py-16 px-6 md:px-12 max-w-7xl mx-auto">
+  <!-- Heading -->
+  <div class="text-center mb-8">
+    <h2 class="text-4xl md:text-5xl font-semibold mb-4">My Work</h2>
+    <p class="text-gray-600 max-w-2xl mx-auto">A curated selection of my fashion design projects, styling work, and creative explorations.</p>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="flex justify-center mb-10">
+    <div class="flex flex-wrap gap-3" role="tablist" aria-label="Filter projects">
+      <button data-filter-btn data-filter="All" class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm transition focus:outline-none focus-visible:ring">
+        All
+      </button>
+      <button data-filter-btn data-filter="Fashion Design" class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm transition focus:outline-none focus-visible:ring">
+        Fashion Design
+      </button>
+      <button data-filter-btn data-filter="Styling" class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm transition focus:outline-none focus-visible:ring">
+        Styling
+      </button>
+      <button data-filter-btn data-filter="Photography" class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm transition focus:outline-none focus-visible:ring">
+        Photography
+      </button>
+      <button data-filter-btn data-filter="Process" class="px-5 py-2 rounded-full bg-gray-100 text-gray-700 text-sm transition focus:outline-none focus-visible:ring">
+        Process
+      </button>
+    </div>
+  </div>
+
+  <!-- Projects Grid -->
+  <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Card 1 -->
+    <article class="project-card bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transition-opacity duration-500 ease-out opacity-0 translate-y-4"
+             data-category="Fashion Design" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1635279474047-ab3cda78bbe8?q=80&w=1080&auto=format&fit=crop"
+           alt="Sustainable Evening Collection" class="h-56 w-full object-cover">
+      <div class="p-6">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Fashion Design</span>
+        <h3 class="mt-2 text-lg font-medium">Sustainable Evening Collection</h3>
+        <p class="mt-3 text-gray-600 text-sm">A zero-waste evening wear collection using organic silk and innovative draping techniques.</p>
+        <div class="mt-4">
+          <button class="px-4 py-2 rounded-md bg-black text-white text-sm hover:opacity-90 transition">View Project</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="project-card bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transition-opacity duration-500 ease-out opacity-0 translate-y-4"
+             data-category="Styling" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1612135842459-c831e0ddaf36?q=80&w=1080&auto=format&fit=crop"
+           alt="Urban Street Style" class="h-56 w-full object-cover">
+      <div class="p-6">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Styling</span>
+        <h3 class="mt-2 text-lg font-medium">Urban Street Style</h3>
+        <p class="mt-3 text-gray-600 text-sm">Contemporary street wear styling that blends high fashion with urban culture.</p>
+        <div class="mt-4">
+          <button class="px-4 py-2 rounded-md bg-black text-white text-sm hover:opacity-90 transition">View Project</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="project-card bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transition-opacity duration-500 ease-out opacity-0 translate-y-4"
+             data-category="Process" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1544019860-78e7c6e3a2e5?q=80&w=1080&auto=format&fit=crop"
+           alt="Conceptual Design Process" class="h-56 w-full object-cover">
+      <div class="p-6">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Process</span>
+        <h3 class="mt-2 text-lg font-medium">Conceptual Design Process</h3>
+        <p class="mt-3 text-gray-600 text-sm">From initial sketches to final prototype — documenting the creative journey.</p>
+        <div class="mt-4">
+          <button class="px-4 py-2 rounded-md bg-black text-white text-sm hover:opacity-90 transition">View Project</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="project-card bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transition-opacity duration-500 ease-out opacity-0 translate-y-4"
+             data-category="Photography" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1738570430234-f7e5fbeffc7c?q=80&w=1080&auto=format&fit=crop"
+           alt="Editorial Fashion Photography" class="h-56 w-full object-cover">
+      <div class="p-6">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Photography</span>
+        <h3 class="mt-2 text-lg font-medium">Editorial Fashion Photography</h3>
+        <p class="mt-3 text-gray-600 text-sm">Fashion photography that captures the essence of contemporary design narratives.</p>
+        <div class="mt-4">
+          <button class="px-4 py-2 rounded-md bg-black text-white text-sm hover:opacity-90 transition">View Project</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 5 -->
+    <article class="project-card bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transition-opacity duration-500 ease-out opacity-0 translate-y-4"
+             data-category="Fashion Design" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1684259499086-93cb3e555803?q=80&w=1080&auto=format&fit=crop"
+           alt="Garment Construction" class="h-56 w-full object-cover">
+      <div class="p-6">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Fashion Design</span>
+        <h3 class="mt-2 text-lg font-medium">Garment Construction</h3>
+        <p class="mt-3 text-gray-600 text-sm">Detailed construction techniques showcasing precision in pattern making and tailoring.</p>
+        <div class="mt-4">
+          <button class="px-4 py-2 rounded-md bg-black text-white text-sm hover:opacity-90 transition">View Project</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 6 -->
+    <article class="project-card bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transition-opacity duration-500 ease-out opacity-0 translate-y-4"
+             data-category="Fashion Design" tabindex="0">
+      <img src="https://images.unsplash.com/photo-1635279474047-ab3cda78bbe8?q=80&w=1080&auto=format&fit=crop"
+           alt="Avant-garde Concept" class="h-56 w-full object-cover">
+      <div class="p-6">
+        <span class="text-xs uppercase tracking-wide text-gray-500">Fashion Design</span>
+        <h3 class="mt-2 text-lg font-medium">Avant-garde Concept</h3>
+        <p class="mt-3 text-gray-600 text-sm">Experimental designs that challenge conventional fashion boundaries.</p>
+        <div class="mt-4">
+          <button class="px-4 py-2 rounded-md bg-black text-white text-sm hover:opacity-90 transition">View Project</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="process" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-16 opacity-0 animate-fadeInUp">
+      <h2 class="text-4xl md:text-5xl tracking-wide mb-6">Design Process</h2>
+      <div class="w-16 h-0.5 bg-black mx-auto mb-8"></div>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        My systematic approach to fashion design, from initial concept to final garment construction.
+      </p>
+    </div>
+
+    <div class="relative">
+      <!-- Vertical timeline line -->
+      <div class="absolute left-1/2 transform -translate-x-0.5 h-full w-0.5 bg-gray-300 hidden lg:block"></div>
+
+      <div class="space-y-12">
+        <!-- Step 01 -->
+        <div class="flex items-center lg:flex-row flex-col lg:gap-16 gap-8 opacity-0 animate-fadeInLeft">
+          <div class="lg:w-1/2 w-full">
+            <div class="bg-white p-8 rounded-lg shadow-lg text-center lg:text-right hover:-translate-y-1 transition-transform duration-300">
+              <div class="flex items-center justify-center lg:justify-end mb-4">
+                <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mr-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <span class="text-3xl font-light text-gray-400">01</span>
+              </div>
+              <h3 class="text-xl font-medium mb-4">Research & Inspiration</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Gathering inspiration from art, architecture, nature, and cultural movements to inform the design direction.
+              </p>
+            </div>
+          </div>
+          <div class="hidden lg:block relative">
+            <div class="w-6 h-6 bg-black rounded-full border-4 border-white shadow-lg"></div>
+          </div>
+          <div class="lg:w-1/2 w-full"></div>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="flex items-center lg:flex-row-reverse flex-col lg:gap-16 gap-8 opacity-0 animate-fadeInRight">
+          <div class="lg:w-1/2 w-full">
+            <div class="bg-white p-8 rounded-lg shadow-lg text-center lg:text-left hover:-translate-y-1 transition-transform duration-300">
+              <div class="flex items-center justify-center lg:justify-start mb-4">
+                <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mr-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </div>
+                <span class="text-3xl font-light text-gray-400">02</span>
+              </div>
+              <h3 class="text-xl font-medium mb-4">Sketch & Concept</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Translating ideas into initial sketches and developing the core concept through iterative design exploration.
+              </p>
+            </div>
+          </div>
+          <div class="hidden lg:block relative">
+            <div class="w-6 h-6 bg-black rounded-full border-4 border-white shadow-lg"></div>
+          </div>
+          <div class="lg:w-1/2 w-full"></div>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="flex items-center lg:flex-row flex-col lg:gap-16 gap-8 opacity-0 animate-fadeInLeft">
+          <div class="lg:w-1/2 w-full">
+            <div class="bg-white p-8 rounded-lg shadow-lg text-center lg:text-right hover:-translate-y-1 transition-transform duration-300">
+              <div class="flex items-center justify-center lg:justify-end mb-4">
+                <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mr-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <span class="text-3xl font-light text-gray-400">01</span>
+              </div>
+              <h3 class="text-xl font-medium mb-4">Research & Inspiration</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Gathering inspiration from art, architecture, nature, and cultural movements to inform the design direction.
+              </p>
+            </div>
+          </div>
+          <div class="hidden lg:block relative">
+            <div class="w-6 h-6 bg-black rounded-full border-4 border-white shadow-lg"></div>
+          </div>
+          <div class="lg:w-1/2 w-full"></div>
+        </div>
+
+        <!-- Step 04 -->
+        <div class="flex items-center lg:flex-row-reverse flex-col lg:gap-16 gap-8 opacity-0 animate-fadeInRight">
+          <div class="lg:w-1/2 w-full">
+            <div class="bg-white p-8 rounded-lg shadow-lg text-center lg:text-left hover:-translate-y-1 transition-transform duration-300">
+              <div class="flex items-center justify-center lg:justify-start mb-4">
+                <div class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center mr-4">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </div>
+                <span class="text-3xl font-light text-gray-400">02</span>
+              </div>
+              <h3 class="text-xl font-medium mb-4">Sketch & Concept</h3>
+              <p class="text-gray-600 leading-relaxed">
+                Translating ideas into initial sketches and developing the core concept through iterative design exploration.
+              </p>
+            </div>
+          </div>
+          <div class="hidden lg:block relative">
+            <div class="w-6 h-6 bg-black rounded-full border-4 border-white shadow-lg"></div>
+          </div>
+          <div class="lg:w-1/2 w-full"></div>
+        </div>
+        <!-- Repeat the same structure for Step 03, 04, 05... -->
+
+      </div>
+    </div>
+
+    <!-- Closing Card -->
+    <div class="text-center mt-16 opacity-0 animate-fadeInUp delay-500">
+      <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+        <h3 class="text-xl font-medium mb-4">Sustainable Innovation</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Throughout every step of my design process, sustainability and innovation remain at the forefront. 
+          I focus on zero-waste pattern making, upcycled materials, and timeless designs that transcend 
+          seasonal trends while maintaining the highest standards of craftsmanship and aesthetic appeal.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Section Header -->
+    <div class="text-center mb-16 opacity-0 animate-fadeInUp">
+      <h2 class="text-4xl md:text-5xl tracking-wide mb-6">Achievements</h2>
+      <div class="w-16 h-0.5 bg-black mx-auto mb-8"></div>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Recognition, education, and milestones that have shaped my journey in fashion design.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16">
+      <!-- Timeline -->
+      <div class="opacity-0 animate-fadeInLeft">
+        <h3 class="text-2xl font-medium mb-8">Recognition & Experience</h3>
+        <div class="relative">
+          <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+
+          <!-- Item -->
+          <div class="relative flex items-start mb-8 last:mb-0 opacity-0 animate-fadeInUp delay-200">
+            <div class="flex-shrink-0 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center z-10">
+              <span class="text-sm font-medium">24</span>
+            </div>
+            <div class="ml-6 bg-gray-50 p-6 rounded-lg flex-1">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="font-medium">Dean's List Recognition</h4>
+                <span class="text-sm text-gray-500">2024</span>
+              </div>
+              <p class="text-sm text-gray-600 mb-2">Parsons School of Design</p>
+              <p class="text-gray-700 text-sm leading-relaxed">
+                Achieved academic excellence with GPA above 3.7 for consecutive semesters.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="relative flex items-start mb-8 last:mb-0 opacity-0 animate-fadeInUp delay-300">
+            <div class="flex-shrink-0 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center z-10">
+              <span class="text-sm font-medium">24</span>
+            </div>
+            <div class="ml-6 bg-gray-50 p-6 rounded-lg flex-1">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="font-medium">Sustainable Fashion Award</h4>
+                <span class="text-sm text-gray-500">2024</span>
+              </div>
+              <p class="text-sm text-gray-600 mb-2">New York Fashion Week</p>
+              <p class="text-gray-700 text-sm leading-relaxed">
+                First place in the emerging designers' sustainable fashion competition.
+              </p>
+            </div>
+          </div>
+
+          <!-- Add more items following the same pattern for 2023 & 2022 -->
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="opacity-0 animate-fadeInRight delay-200">
+        <h3 class="text-2xl font-medium mb-8">Technical Skills</h3>
+        <div class="space-y-6">
+          <!-- Skill -->
+          <div class="space-y-2 opacity-0 animate-fadeInUp delay-400">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Pattern Making</span>
+              <span class="text-sm text-gray-600">95%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div class="bg-black h-2 rounded-full animate-growBar" style="--bar-width:95%"></div>
+            </div>
+          </div>
+
+          <!-- Skill -->
+          <div class="space-y-2 opacity-0 animate-fadeInUp delay-500">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Garment Construction</span>
+              <span class="text-sm text-gray-600">90%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div class="bg-black h-2 rounded-full animate-growBar" style="--bar-width:90%"></div>
+            </div>
+          </div>
+
+          <!-- Repeat for more skills... -->
+        </div>
+
+        <!-- Education -->
+        <div class="mt-12 bg-gray-50 p-6 rounded-lg opacity-0 animate-fadeInUp delay-800">
+          <h4 class="font-medium mb-4">Education</h4>
+          <div class="space-y-4">
+            <div>
+              <h5 class="font-medium">Bachelor of Fine Arts - Fashion Design</h5>
+              <p class="text-gray-600 text-sm">Parsons School of Design, New York</p>
+              <p class="text-gray-600 text-sm">Expected Graduation: May 2025</p>
+              <p class="text-gray-600 text-sm">GPA: 3.9/4.0</p>
+            </div>
+            <div>
+              <h5 class="font-medium">High School Diploma</h5>
+              <p class="text-gray-600 text-sm">Arts & Design Academy, Los Angeles</p>
+              <p class="text-gray-600 text-sm">Graduated: 2021</p>
+              <p class="text-gray-600 text-sm">Valedictorian</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==== Contact Section ==== -->
+<section id="contact" class="py-20 bg-gray-900 text-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="fade-up text-center mb-16">
+      <h2 class="text-4xl md:text-5xl tracking-wide mb-6">Let's Connect</h2>
+      <div class="w-16 h-0.5 bg-white mx-auto mb-8"></div>
+      <p class="text-gray-300 max-w-2xl mx-auto">
+        Ready to collaborate or discuss fashion design opportunities? I'd love to hear from you.
+      </p>
+    </div>
+
+    <!-- Two columns -->
+    <div class="grid lg:grid-cols-2 gap-16">
+      <!-- Left Column -->
+      <div class="fade-left space-y-8">
+        <div>
+          <h3 class="text-2xl font-medium mb-6">Get In Touch</h3>
+          <p class="text-gray-300 leading-relaxed mb-6">
+            Whether you're interested in collaboration, internship opportunities, or just want to 
+            discuss sustainable fashion, I'm always open to meaningful conversations that can 
+            shape the future of fashion design.
+          </p>
+        </div>
+
+        <!-- Info Items -->
+        <div class="space-y-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Location</p>
+              <p class="text-gray-300">New York City, NY</p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Availability</p>
+              <p class="text-gray-300">Open for Summer 2025 Internships</p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m8 6V4a2 2 0 00-2-2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Focus Areas</p>
+              <p class="text-gray-300">Sustainable Design, Pattern Making, Innovation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="fade-right space-y-8">
+        <h3 class="text-2xl font-medium mb-6">Connect With Me</h3>
+        <div class="space-y-4">
+          <!-- Instagram -->
+          <a href="#" class="fade-up flex items-center space-x-4 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300 group">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm9 1.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Instagram</p>
+              <p class="text-gray-300 text-sm">@alexchen.designs</p>
+            </div>
+            <div class="ml-auto text-gray-400 group-hover:text-white transition-colors">→</div>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/lillian-diana-lema-leon-a6a101297" class="fade-up flex items-center space-x-4 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300 group">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+            </div>
+            <div>
+              <p class="font-medium">LinkedIn</p>
+              <p class="text-gray-300 text-sm">Alex Chen</p>
+            </div>
+            <div class="ml-auto text-gray-400 group-hover:text-white transition-colors">→</div>
+          </a>
+
+          <!-- Behance -->
+          <a href="#" class="fade-up flex items-center space-x-4 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300 group">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.498 1.19.906.26 1.576.72 2.022 1.37.448.66.672 1.45.672 2.36 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.69.767-.64.16-1.345.24-2.116.24H0V4.503h6.938z"></path></svg>
+            </div>
+            <div>
+              <p class="font-medium">Behance</p>
+              <p class="text-gray-300 text-sm">Alex Chen</p>
+            </div>
+            <div class="ml-auto text-gray-400 group-hover:text-white transition-colors">→</div>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:alex.chen@student.parsons.edu" class="fade-up flex items-center space-x-4 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300 group">
+            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm8 7l8-5H4l8 5zm0 2l-8-5v10h16V8l-8 5z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium">Email</p>
+              <p class="text-gray-300 text-sm">llema32905@my.sunywwc.edu</p>
+            </div>
+            <div class="ml-auto text-gray-400 group-hover:text-white transition-colors">→</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="fade-up text-center mt-16 pt-8 border-t border-gray-800">
+      <p class="text-gray-400">
+        © 2025 Alex Chen. Designed with passion for sustainable fashion.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Animation Styles -->
+<style>
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .fade-up, .fade-left, .fade-right { opacity: 0; }
+  .in-view { opacity: 1; }
+  .fade-up.in-view { animation: fadeUp 0.8s ease-out forwards; }
+  .fade-left.in-view { animation: fadeLeft 0.8s ease-out forwards; }
+  .fade-right.in-view { animation: fadeRight 0.8s ease-out forwards; }
+</style>
+
+<!-- Scroll Trigger -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll(".fade-up, .fade-left, .fade-right").forEach((el) => observer.observe(el));
+</script>
+
+<!-- Animations -->
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes growBar {
+    from { width: 0; }
+    to { width: var(--bar-width); }
+  }
+
+  .animate-fadeInUp { animation: fadeInUp 0.8s ease forwards; }
+  .animate-fadeInLeft { animation: fadeInLeft 0.8s ease forwards; }
+  .animate-fadeInRight { animation: fadeInRight 0.8s ease forwards; }
+  .animate-growBar { animation: growBar 1.2s ease forwards; }
+
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  .delay-800 { animation-delay: 0.8s; }
+</style>
+
+<!-- Tailwind Animations -->
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .animate-fadeInUp { animation: fadeInUp 0.8s ease forwards; }
+  .animate-fadeInLeft { animation: fadeInLeft 0.8s ease forwards; }
+  .animate-fadeInRight { animation: fadeInRight 0.8s ease forwards; }
+  .delay-500 { animation-delay: 0.5s; }
+</style>
+
+<!-- ===== Scripts (filter + reveal) ===== -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('[data-filter-btn]');
+    const cards = Array.from(document.querySelectorAll('.project-card'));
+
+    // IntersectionObserver for initial reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const card = entry.target;
+          card.classList.add('opacity-100', 'translate-y-0');
+          card.classList.remove('opacity-0', 'translate-y-4');
+          io.unobserve(card); // animate once
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "-100px" });
+
+    cards.forEach(c => io.observe(c));
+
+    // Filter behavior with smooth show/hide
+    const showCard = (card) => {
+      // remove hidden if present and animate in
+      card.classList.remove('hidden');
+      // start from hidden state
+      card.classList.remove('opacity-100', 'translate-y-0');
+      card.classList.add('opacity-0', 'translate-y-4');
+      // animate in on next frame
+      requestAnimationFrame(() => {
+        card.classList.remove('opacity-0', 'translate-y-4');
+        card.classList.add('opacity-100', 'translate-y-0');
+      });
+    };
+
+    const hideCard = (card) => {
+      // animate out then hide
+      card.classList.remove('opacity-100', 'translate-y-0');
+      card.classList.add('opacity-0', 'translate-y-4');
+      setTimeout(() => card.classList.add('hidden'), 420); // matches transition duration
+    };
+
+    // Set default active
+    const setActiveButton = (activeBtn) => {
+      filterButtons.forEach(btn => {
+        const isActive = btn === activeBtn;
+        btn.classList.toggle('bg-black', isActive);
+        btn.classList.toggle('text-white', isActive);
+        btn.classList.toggle('bg-gray-100', !isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    };
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        setActiveButton(btn);
+
+        cards.forEach(card => {
+          const cat = card.dataset.category || '';
+          if (filter === 'All' || cat === filter) {
+            showCard(card);
+          } else {
+            hideCard(card);
+          }
+        });
+      });
+    });
+
+    // Initialize: "All" active
+    const defaultBtn = document.querySelector('[data-filter-btn][data-filter="All"]');
+    if (defaultBtn) setActiveButton(defaultBtn);
+  });
+</script>
+
+<!-- Notes:
+ - This section uses Tailwind utility classes. Ensure Tailwind is loaded on the page.
+ - To add more projects: copy one <article class="project-card ..."> and update data-category and content.
+ - The "View Project" buttons are placeholders — replace with modal or link behavior as needed.
+-->
+
+<!-- IntersectionObserver Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("opacity-100", "translate-y-0", "translate-x-0", "scale-100");
+          entry.target.classList.remove("opacity-0", "translate-y-8", "-translate-x-8", "translate-x-8", "scale-95");
+        }
+      });
+    }, { threshold: 0.2, rootMargin: "-100px" });
+
+    reveals.forEach(el => observer.observe(el));
+  });
+</script>
+
+  <script>
+    // smooth scrolling behavior (css covers it, but keep in case of anchor JS)
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    // Nav background toggle on scroll (keeps your original behavior)
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
+        navbar.classList.remove('bg-transparent');
+      } else {
+        navbar.classList.add('bg-transparent');
+        navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
+      }
+    });
+
+    // Load animation sequence that mirrors your motion/react timings
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbar = document.getElementById('navbar');
+      const heroWrap = document.getElementById('hero-wrap');
+      const heroTitle = document.getElementById('hero-title');
+      const heroLine = document.getElementById('hero-line');
+      const heroSub = document.getElementById('hero-sub');
+      const heroDesc = document.getElementById('hero-desc');
+      const heroArrowWrap = document.getElementById('hero-arrow-wrap');
+
+      // slide nav down quickly (matches motion nav duration 0.5s)
+      setTimeout(() => {
+        navbar.style.transform = 'translateY(0)';
+      }, 50);
+
+      // hero wrapper fade/slide in (delay: 200ms, duration: 800ms)
+      setTimeout(() => {
+        heroWrap.style.opacity = '1';
+        heroWrap.style.transform = 'translateY(0)';
+      }, 200);
+
+      // title pop (delay: 500ms, duration: 1000ms)
+      setTimeout(() => {
+        heroTitle.style.opacity = '1';
+        heroTitle.style.transform = 'scale(1)';
+      }, 500);
+
+      // underline grow (delay: 1000ms, duration: 800ms) -> 96px equals Tailwind w-24 (6rem)
+      setTimeout(() => {
+        heroLine.style.width = '96px';
+      }, 1000);
+
+      // tagline fade (delay: 1200ms)
+      setTimeout(() => {
+        heroSub.style.opacity = '1';
+      }, 1200);
+
+      // description reveal (delay: 1500ms)
+      setTimeout(() => {
+        heroDesc.style.opacity = '1';
+        heroDesc.style.transform = 'translateY(0)';
+      }, 1500);
+
+      // arrow appear (delay: 2000ms)
+      setTimeout(() => {
+        heroArrowWrap.style.opacity = '1';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
